@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netlist Comparison Report</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table {
+            border: 2px solid #000;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #000;
+        }
+        .sticky-header thead th {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #f8f9fa;
+            z-index: 1;
+        }
+        .mismatch-row {
+            background-color: #f8d7da;
+        }
+        .match-row {
+            background-color: #d4edda;
+        }
+        .modal-dialog {
+            max-width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <h1><center>Netlist Comparison Report</center></h1>
+        <table class="table sticky-header">
+            <thead>
+                <tr>
+                    <th>S. No.</th>
+                    <th>Net Name</th>
+                    <th>Net Code in File 1</th>
+                    <th>Nodes in File 1</th>
+                    <th>Net Code in File 2</th>
+                    <th>Nodes in File 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ rows }}
+                {{ footer_info }}
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-info mt-4" data-toggle="modal" data-target="#detailedComparisonModal">
+            Detailed Net Comparison
+        </button>
+    </div>
+    
+    <!-- Detailed Comparison Modal -->
+    <div class="modal fade" id="detailedComparisonModal" tabindex="-1" role="dialog" aria-labelledby="detailedComparisonModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailedComparisonModalLabel">Detailed Net Comparison</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table sticky-header">
+                        <thead>
+                            <tr>
+                                <th>S. No.</th>
+                                <th>Mismatched Net Name</th>
+                                <th>Node Details in File 1</th>
+                                <th>Node Details in File 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ detailed_rows }}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
